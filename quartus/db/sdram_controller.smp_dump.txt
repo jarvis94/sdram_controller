@@ -1,0 +1,12 @@
+
+State Machine - |sdram_controller|p_s
+Name p_s.idle p_s.init_nop4 p_s.init_msr p_s.init_nop3 p_s.init_ar p_s.init_nop2 p_s.init_pall p_s.init_nop1 p_s.init_s 
+p_s.init_s 0 0 0 0 0 0 0 0 0 
+p_s.init_nop1 0 0 0 0 0 0 0 1 1 
+p_s.init_pall 0 0 0 0 0 0 1 0 1 
+p_s.init_nop2 0 0 0 0 0 1 0 0 1 
+p_s.init_ar 0 0 0 0 1 0 0 0 1 
+p_s.init_nop3 0 0 0 1 0 0 0 0 1 
+p_s.init_msr 0 0 1 0 0 0 0 0 1 
+p_s.init_nop4 0 1 0 0 0 0 0 0 1 
+p_s.idle 1 0 0 0 0 0 0 0 1 

@@ -1,0 +1,86 @@
+-- SDRAM controller
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity sdram_controller is
+	port (
+		init,rd_req,wr_req,clk: in std_logic;
+		address: in std_logic_vector(23 downto 0);
+		clk_out,cke,cs_b,ras_b,cas_b,we_b,ba_0,ba_1,dqm_l,dqm_h: out std_logic;
+		address_out: out std_logic_vector(12 downto 0);
+		data_in: in std_logic_vector(15 downto 0);
+		data_out: out std_logic_vector(15 downto 0);
+		data_in_out: inout std_logic_vector(15 downto 0)
+	);
+end sdram_controller;
+
+architecture sdram_controller_arc of sdram_controller is
+type state is (init,init_nop1,init_pall,init_nop2,init_ar,init_nop3,init_msr,init_nop4,idle);
+signal p_s,n_s: state;
+signal cnt_setup,cnt_setup_reg: std_logic_vector(16 downto 0);
+signal cnt_state,cnt_state_reg: std_logic_vector(3 downto 0);
+signal cnt_setup_st,cnt_state_st: std_logic;
+begin
+
+cnt_setup_proc: process(init,clk,cnt_setup_st)
+	begin	
+		if (clk'event and clk='1') then
+			if (cnt_setup_st = '1') then
+				cnt_setup_reg <= cnt_setup
+				if (cnt_setup_reg = x"0000") then
+					cnt_setup_reg <= cnt_setup_reg
+				else
+					if (init='1') then	
+						cnt_setup_reg <= std_logic_vector(unsigned(cnt_setup_reg) - 1)			
+					end if;
+				end if;
+			end if;
+		end if;
+	end process
+
+cnt_state_proc: process(init,clk)
+	begin
+		if (clk'event and clk='1') then
+			if (cnt_state_st = '1') then
+				cnt_state_reg <= cnt_state;
+--				if (cnt_state_reg = x"00") then
+--					cnt_state_reg <= cnt_state;
+--				else
+					if (init='1') then	
+						cnt_state_reg <= std_logic_vector(unsigned(cnt_state_reg) - 1)			
+--					end if;
+				end if;
+			end if;
+		end if;
+	end process
+
+
+state_proc:process(clk,init)
+begin
+	if (init = '1') then
+		p_s <= init;
+		cnt_setup_st = '1';
+		cnt_state_st = '1';
+		cnt_setup <= x"4E20";
+		cnt_state <= x"00";
+	elsif (clk'event and clk='1') then
+	 	p_s <= n_s;
+	else
+		p_s <= p_s;			
+	end if;
+end process
+
+
+next_state_proc:process(clk)
+begin
+	case(p_s) is
+		--init cycles
+		when init => 
+		cnt_setup_st = '0';
+		cnt_state_st = '0';
+		cnt_setup <= x"4E20";
+		when others =>
+			null;
+	end case;
+end sdram_controller_arc;
