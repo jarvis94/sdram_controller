@@ -28,7 +28,7 @@ signal cmd_d,cmd_d_nxt: cmd;
 signal cnt_ar: std_logic_vector(3 downto 0);
 signal busy: std_logic;
 
---commands				                              CCRCWBBA
+--commands                                            CCRCWBBA
 constant cmd_desl  : std_logic_vector(7 downto 0) := "11------"; -- device deselect
 constant cmd_nop   : std_logic_vector(7 downto 0) := "10111---"; -- nop
 constant cmd_read  : std_logic_vector(7 downto 0) := "10101--0"; -- read
@@ -75,17 +75,15 @@ cnt_setup_proc: process(init,clk,cnt_setup_st)
 		if (clk'event and clk='1') then
 			if (cnt_setup_st = '1') then
 				cnt_setup_reg <= cnt_setup;
-				--if (cnt_setup_reg = x"0000") then
-				--	cnt_setup_reg <= cnt_setup_reg;
 			else
-					if (init='1') then	
-						if (cnt_setup_reg = x"0000") then
-							cnt_setup_reg <= cnt_setup_reg;
-						else
-							cnt_setup_reg <= std_logic_vector(unsigned(cnt_setup_reg) - 1);			
-						end if;
+				if (init='1') then	
+					if (cnt_setup_reg = x"0000") then
+						cnt_setup_reg <= cnt_setup_reg;
+					else
+						cnt_setup_reg <= std_logic_vector(unsigned(cnt_setup_reg) - 1);			
 					end if;
-				--end if;
+				end if;
+				
 			end if;
 		end if;
 	end process;
@@ -96,17 +94,14 @@ cnt_state_proc: process(init,clk)
 		if (clk'event and clk='1') then
 			if (cnt_state_st = '1') then
 				cnt_state_reg <= cnt_state;
---				if (cnt_state_reg = x"00") then
---					cnt_state_reg <= cnt_state;
 			else
-					if (init='1') then
-						if (cnt_state_reg = x"0") then
-							cnt_state_reg <= cnt_state_reg;
-						else
-							cnt_state_reg <= std_logic_vector(unsigned(cnt_state_reg) - 1);		
-						end if;
+				if (init='1') then
+					if (cnt_state_reg = x"0") then
+						cnt_state_reg <= cnt_state_reg;
+					else
+						cnt_state_reg <= std_logic_vector(unsigned(cnt_state_reg) - 1);		
 					end if;
---				end if;
+				end if;
 			end if;
 		end if;
 	end process;
