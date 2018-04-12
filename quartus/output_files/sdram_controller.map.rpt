@@ -1,5 +1,5 @@
 Analysis & Synthesis report for sdram_controller
-Wed Apr 11 20:13:38 2018
+Thu Apr 12 18:27:22 2018
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -13,14 +13,15 @@ Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |sdram_controller|p_s
-  9. Registers Removed During Synthesis
- 10. Removed Registers Triggering Further Register Optimizations
- 11. General Register Statistics
- 12. Multiplexer Restructuring Statistics (Restructuring Performed)
- 13. Post-Synthesis Netlist Statistics for Top Partition
- 14. Elapsed Time Per Partition
- 15. Analysis & Synthesis Messages
+  8. State Machine - |sdram_controller|cmd_d
+  9. State Machine - |sdram_controller|p_s
+ 10. User-Specified and Inferred Latches
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 14. Post-Synthesis Netlist Statistics for Top Partition
+ 15. Elapsed Time Per Partition
+ 16. Analysis & Synthesis Messages
 
 
 
@@ -46,15 +47,15 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 11 20:13:38 2018       ;
+; Analysis & Synthesis Status        ; Successful - Thu Apr 12 18:27:22 2018       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; sdram_controller                            ;
 ; Top-level Entity Name              ; sdram_controller                            ;
 ; Family                             ; Cyclone IV E                                ;
-; Total logic elements               ; 0                                           ;
-;     Total combinational functions  ; 0                                           ;
-;     Dedicated logic registers      ; 0                                           ;
-; Total registers                    ; 0                                           ;
+; Total logic elements               ; 76                                          ;
+;     Total combinational functions  ; 75                                          ;
+;     Dedicated logic registers      ; 32                                          ;
+; Total registers                    ; 32                                          ;
 ; Total pins                         ; 99                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -158,10 +159,11 @@ refer to the applicable agreement for further details.
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processors 2-4         ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -174,35 +176,36 @@ refer to the applicable agreement for further details.
 +----------------------------------+-----------------+-----------------+---------------------------------------------------------------------------------+---------+
 
 
-+---------------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                         ;
-+---------------------------------------------+-----------------------+
-; Resource                                    ; Usage                 ;
-+---------------------------------------------+-----------------------+
-;                                             ;                       ;
-; Total combinational functions               ; 0                     ;
-; Logic element usage by number of LUT inputs ;                       ;
-;     -- 4 input functions                    ; 0                     ;
-;     -- 3 input functions                    ; 0                     ;
-;     -- <=2 input functions                  ; 0                     ;
-;                                             ;                       ;
-; Logic elements by mode                      ;                       ;
-;     -- normal mode                          ; 0                     ;
-;     -- arithmetic mode                      ; 0                     ;
-;                                             ;                       ;
-; Total registers                             ; 0                     ;
-;     -- Dedicated logic registers            ; 0                     ;
-;     -- I/O registers                        ; 0                     ;
-;                                             ;                       ;
-; I/O pins                                    ; 99                    ;
-;                                             ;                       ;
-; Embedded Multiplier 9-bit elements          ; 0                     ;
-;                                             ;                       ;
-; Maximum fan-out node                        ; data_in_out[0]~output ;
-; Maximum fan-out                             ; 1                     ;
-; Total fan-out                               ; 115                   ;
-; Average fan-out                             ; 0.54                  ;
-+---------------------------------------------+-----------------------+
++---------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary             ;
++---------------------------------------------+-----------+
+; Resource                                    ; Usage     ;
++---------------------------------------------+-----------+
+; Estimated Total logic elements              ; 76        ;
+;                                             ;           ;
+; Total combinational functions               ; 75        ;
+; Logic element usage by number of LUT inputs ;           ;
+;     -- 4 input functions                    ; 19        ;
+;     -- 3 input functions                    ; 32        ;
+;     -- <=2 input functions                  ; 24        ;
+;                                             ;           ;
+; Logic elements by mode                      ;           ;
+;     -- normal mode                          ; 60        ;
+;     -- arithmetic mode                      ; 15        ;
+;                                             ;           ;
+; Total registers                             ; 32        ;
+;     -- Dedicated logic registers            ; 32        ;
+;     -- I/O registers                        ; 0         ;
+;                                             ;           ;
+; I/O pins                                    ; 99        ;
+;                                             ;           ;
+; Embedded Multiplier 9-bit elements          ; 0         ;
+;                                             ;           ;
+; Maximum fan-out node                        ; clk~input ;
+; Maximum fan-out                             ; 32        ;
+; Total fan-out                               ; 455       ;
+; Average fan-out                             ; 1.42      ;
++---------------------------------------------+-----------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -210,9 +213,31 @@ refer to the applicable agreement for further details.
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+------------------+--------------+
 ; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Entity Name      ; Library Name ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+------------------+--------------+
-; |sdram_controller          ; 0 (0)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 99   ; 0            ; |sdram_controller   ; sdram_controller ; work         ;
+; |sdram_controller          ; 75 (75)             ; 32 (32)                   ; 0           ; 0            ; 0       ; 0         ; 99   ; 0            ; |sdram_controller   ; sdram_controller ; work         ;
 +----------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------+------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |sdram_controller|cmd_d                                                                                                                                                 ;
++--------------+-------------+-----------+------------+-----------+------------+-----------+-----------+--------------+--------------+-------------+-------------+-----------+------------+
+; Name         ; cmd_d.idle1 ; cmd_d.mrs ; cmd_d.self ; cmd_d.ref ; cmd_d.pall ; cmd_d.pre ; cmd_d.act ; cmd_d.writea ; cmd_d.write1 ; cmd_d.reada ; cmd_d.read1 ; cmd_d.nop ; cmd_d.desl ;
++--------------+-------------+-----------+------------+-----------+------------+-----------+-----------+--------------+--------------+-------------+-------------+-----------+------------+
+; cmd_d.desl   ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 0          ;
+; cmd_d.nop    ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 1         ; 1          ;
+; cmd_d.read1  ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 1           ; 0         ; 1          ;
+; cmd_d.reada  ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 1           ; 0           ; 0         ; 1          ;
+; cmd_d.write1 ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 1            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.writea ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 1            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.act    ; 0           ; 0         ; 0          ; 0         ; 0          ; 0         ; 1         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.pre    ; 0           ; 0         ; 0          ; 0         ; 0          ; 1         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.pall   ; 0           ; 0         ; 0          ; 0         ; 1          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.ref    ; 0           ; 0         ; 0          ; 1         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.self   ; 0           ; 0         ; 1          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.mrs    ; 0           ; 1         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
+; cmd_d.idle1  ; 1           ; 0         ; 0          ; 0         ; 0          ; 0         ; 0         ; 0            ; 0            ; 0           ; 0           ; 0         ; 1          ;
++--------------+-------------+-----------+------------+-----------+------------+-----------+-----------+--------------+--------------+-------------+-------------+-----------+------------+
 
 
 Encoding Type:  One-Hot
@@ -233,45 +258,61 @@ Encoding Type:  One-Hot
 +---------------+----------+---------------+--------------+---------------+-------------+---------------+---------------+---------------+------------+
 
 
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; command_nxt[5]                                      ; command_nxt         ; yes                    ;
+; command_nxt[4]                                      ; command_nxt         ; yes                    ;
+; command_nxt[3]                                      ; command_nxt         ; yes                    ;
+; command_nxt[0]                                      ; command_nxt         ; yes                    ;
+; n_s.init_pall_792                                   ; p_s.idle            ; yes                    ;
+; n_s.init_ar_776                                     ; p_s.idle            ; yes                    ;
+; n_s.init_msr_760                                    ; p_s.idle            ; yes                    ;
+; n_s.init_nop1_800                                   ; p_s.idle            ; yes                    ;
+; n_s.idle_744                                        ; p_s.idle            ; yes                    ;
+; cnt_ar[3]                                           ; Selector21          ; yes                    ;
+; cnt_ar[2]                                           ; Selector21          ; yes                    ;
+; cnt_ar[1]                                           ; Selector21          ; yes                    ;
+; cnt_ar[0]                                           ; Selector21          ; yes                    ;
+; cnt_setup_st                                        ; WideOr0             ; yes                    ;
+; cnt_state[0]                                        ; WideOr17            ; yes                    ;
+; cnt_state_st                                        ; WideOr9             ; yes                    ;
+; cnt_state[1]                                        ; WideOr17            ; yes                    ;
+; cnt_state[2]                                        ; WideOr17            ; yes                    ;
+; cnt_ar_st                                           ; Selector19          ; yes                    ;
+; n_s.init_nop3_768                                   ; p_s.idle            ; yes                    ;
+; n_s.init_nop2_784                                   ; p_s.idle            ; yes                    ;
+; n_s.init_nop4_752                                   ; p_s.idle            ; yes                    ;
+; Number of user-specified and inferred latches = 22  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
+Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
+
+
 +---------------------------------------------------------------------------------+
 ; Registers Removed During Synthesis                                              ;
 +----------------------------------------+----------------------------------------+
 ; Register name                          ; Reason for Removal                     ;
 +----------------------------------------+----------------------------------------+
-; cnt_state_reg[3]                       ; Stuck at GND due to stuck port data_in ;
-; command[0]                             ; Stuck at GND due to stuck port data_in ;
-; cnt_state_reg[0]                       ; Stuck at GND due to stuck port data_in ;
-; cnt_state_reg[1]                       ; Stuck at VCC due to stuck port data_in ;
-; cnt_state_reg[2]                       ; Stuck at GND due to stuck port data_in ;
 ; command[7]                             ; Stuck at VCC due to stuck port data_in ;
-; command[6]                             ; Stuck at GND due to stuck port data_in ;
-; command[3..5]                          ; Stuck at VCC due to stuck port data_in ;
-; command[1,2]                           ; Stuck at GND due to stuck port data_in ;
-; p_s.init_nop2                          ; Lost fanout                            ;
-; p_s.init_ar                            ; Lost fanout                            ;
-; p_s.init_nop3                          ; Lost fanout                            ;
-; p_s.init_msr                           ; Lost fanout                            ;
-; p_s.init_nop4                          ; Lost fanout                            ;
-; p_s.idle                               ; Lost fanout                            ;
-; cnt_setup_reg[0..15]                   ; Lost fanout                            ;
-; p_s.init_s                             ; Lost fanout                            ;
-; p_s.init_nop1                          ; Lost fanout                            ;
-; p_s.init_pall                          ; Lost fanout                            ;
-; Total Number of Removed Registers = 37 ;                                        ;
+; command[1,2,6]                         ; Stuck at GND due to stuck port data_in ;
+; cmd_d.desl                             ; Lost fanout                            ;
+; cmd_d.nop                              ; Lost fanout                            ;
+; cmd_d.read1                            ; Lost fanout                            ;
+; cmd_d.reada                            ; Lost fanout                            ;
+; cmd_d.write1                           ; Lost fanout                            ;
+; cmd_d.writea                           ; Lost fanout                            ;
+; cmd_d.act                              ; Lost fanout                            ;
+; cmd_d.pre                              ; Lost fanout                            ;
+; cmd_d.pall                             ; Lost fanout                            ;
+; cmd_d.ref                              ; Lost fanout                            ;
+; cmd_d.self                             ; Lost fanout                            ;
+; cmd_d.mrs                              ; Lost fanout                            ;
+; cmd_d.idle1                            ; Lost fanout                            ;
+; cnt_state_reg[3]                       ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 18 ;                                        ;
 +----------------------------------------+----------------------------------------+
-
-
-+------------------------------------------------------------------------------------------------------------------------------------------+
-; Removed Registers Triggering Further Register Optimizations                                                                              ;
-+------------------+---------------------------+-------------------------------------------------------------------------------------------+
-; Register name    ; Reason for Removal        ; Registers Removed due to This Register                                                    ;
-+------------------+---------------------------+-------------------------------------------------------------------------------------------+
-; cnt_setup_reg[0] ; Lost Fanouts              ; cnt_setup_reg[1], cnt_setup_reg[2], cnt_setup_reg[3], cnt_setup_reg[4], cnt_setup_reg[5], ;
-;                  ;                           ; cnt_setup_reg[6], cnt_setup_reg[7], cnt_setup_reg[8], cnt_setup_reg[9], p_s.init_s,       ;
-;                  ;                           ; p_s.init_nop1, p_s.init_pall                                                              ;
-; cnt_state_reg[3] ; Stuck at GND              ; cnt_setup_reg[10], cnt_setup_reg[11], cnt_setup_reg[12], cnt_setup_reg[13],               ;
-;                  ; due to stuck port data_in ; cnt_setup_reg[14], cnt_setup_reg[15]                                                      ;
-+------------------+---------------------------+-------------------------------------------------------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -279,12 +320,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 0     ;
+; Total registers                              ; 32    ;
 ; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 0     ;
+; Number of registers using Synchronous Load   ; 16    ;
+; Number of registers using Asynchronous Clear ; 9     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 20    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -294,8 +335,8 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output         ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
-; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |sdram_controller|cnt_setup_reg[7] ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |sdram_controller|Selector3        ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |sdram_controller|cnt_setup_reg[8] ;
+; 3:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |sdram_controller|cnt_state_reg[2] ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------+
 
 
@@ -305,13 +346,24 @@ Encoding Type:  One-Hot
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 99                          ;
+; cycloneiii_ff         ; 32                          ;
+;     CLR               ; 9                           ;
+;     ENA               ; 4                           ;
+;     ENA SLD           ; 16                          ;
+;     plain             ; 3                           ;
 ; cycloneiii_io_obuf    ; 16                          ;
-; cycloneiii_lcell_comb ; 2                           ;
-;     normal            ; 2                           ;
+; cycloneiii_lcell_comb ; 76                          ;
+;     arith             ; 15                          ;
+;         2 data inputs ; 15                          ;
+;     normal            ; 61                          ;
 ;         0 data inputs ; 2                           ;
+;         1 data inputs ; 1                           ;
+;         2 data inputs ; 7                           ;
+;         3 data inputs ; 32                          ;
+;         4 data inputs ; 19                          ;
 ;                       ;                             ;
-; Max LUT depth         ; 0.00                        ;
-; Average LUT depth     ; 0.00                        ;
+; Max LUT depth         ; 4.00                        ;
+; Average LUT depth     ; 2.10                        ;
 +-----------------------+-----------------------------+
 
 
@@ -330,7 +382,7 @@ Encoding Type:  One-Hot
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Wed Apr 11 20:13:24 2018
+    Info: Processing started: Thu Apr 12 18:27:07 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off sdram_controller -c sdram_controller
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -345,54 +397,88 @@ Warning (10541): VHDL Signal Declaration warning at sdram_controller.vhd(10): us
 Warning (10541): VHDL Signal Declaration warning at sdram_controller.vhd(10): used implicit default value for signal "dqm_l" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
 Warning (10541): VHDL Signal Declaration warning at sdram_controller.vhd(10): used implicit default value for signal "dqm_h" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
 Warning (10541): VHDL Signal Declaration warning at sdram_controller.vhd(13): used implicit default value for signal "data_out" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations. File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 13
-Warning (10620): VHDL warning at sdram_controller.vhd(98): comparison between unequal length operands always returns FALSE File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 98
-Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(118): signal "p_s" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 118
-Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(119): signal "command" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 119
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "cnt_setup_st", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "cnt_setup", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "command_nxt", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "n_s", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "cnt_state_st", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(124): inferring latch(es) for signal or variable "cnt_state", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
+Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(124): signal "p_s" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
+Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(125): signal "command" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 125
+Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(126): signal "cmd_d" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 126
+Warning (10492): VHDL Process Statement warning at sdram_controller.vhd(175): signal "cnt_ar_st" is read inside the Process Statement but isn't in the Process Statement's sensitivity list File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 175
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_setup_st", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_setup", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "command_nxt", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cmd_d_nxt", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "n_s", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_state_st", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_state", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_ar_st", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "cnt_ar", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (10631): VHDL Process Statement warning at sdram_controller.vhd(131): inferring latch(es) for signal or variable "address_out", which holds its previous value in one or more paths through the process File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
 Warning (10873): Using initial value X (don't care) for net "address_out[12..11]" at sdram_controller.vhd(11) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-Warning (10873): Using initial value X (don't care) for net "address_out[9..0]" at sdram_controller.vhd(11) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-Warning (10873): Using initial value X (don't care) for net "command_nxt[2..0]" at sdram_controller.vhd(25) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 25
-Info (10041): Inferred latch for "cnt_state[0]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_state[1]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_state[2]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_state[3]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_state_st" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.idle" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_nop4" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_msr" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_nop3" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_ar" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_nop2" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_pall" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_nop1" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "n_s.init_s" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "command_nxt[3]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "command_nxt[4]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "command_nxt[5]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "command_nxt[6]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "command_nxt[7]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[0]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[1]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[2]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[3]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[4]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[5]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[6]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[7]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[8]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[9]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[10]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[11]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[12]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[13]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[14]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup[15]" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
-Info (10041): Inferred latch for "cnt_setup_st" at sdram_controller.vhd(124) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 124
+Info (10041): Inferred latch for "address_out[0]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[1]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[2]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[3]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[4]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[5]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[6]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[7]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[8]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "address_out[9]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_ar[0]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_ar[1]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_ar[2]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_ar[3]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_ar_st" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_state[0]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_state[1]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_state[2]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_state[3]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_state_st" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.idle" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_nop4" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_msr" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_nop3" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_ar" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_nop2" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_pall" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_nop1" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "n_s.init_s" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.idle1" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.mrs" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.self" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.ref" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.pall" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.pre" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.act" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.writea" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.write1" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.reada" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.read1" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.nop" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cmd_d_nxt.desl" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[0]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[1]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[2]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[3]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[4]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[5]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[6]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "command_nxt[7]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[0]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[1]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[2]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[3]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[4]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[5]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[6]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[7]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[8]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[9]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[10]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[11]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[12]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[13]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[14]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup[15]" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Info (10041): Inferred latch for "cnt_setup_st" at sdram_controller.vhd(131) File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
 Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "data_in_out[0]" has no driver File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 14
     Warning (13040): bidirectional pin "data_in_out[1]" has no driver File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 14
@@ -410,28 +496,42 @@ Warning (13039): The following bidirectional pins have no drivers
     Warning (13040): bidirectional pin "data_in_out[13]" has no driver File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 14
     Warning (13040): bidirectional pin "data_in_out[14]" has no driver File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 14
     Warning (13040): bidirectional pin "data_in_out[15]" has no driver File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 14
+Info (13025): Duplicate LATCH primitives merged into single LATCH primitive
+    Info (13026): Duplicate LATCH primitive "cnt_state[2]" merged with LATCH primitive "cnt_state[1]" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+Warning (13012): Latch cnt_ar[3] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_ar[2] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_ar[1] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_ar[0] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_setup_st has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 24
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_nop1 File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_state[0] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_state[1] has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_ar File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
+Warning (13012): Latch cnt_ar_st has unsafe behavior File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 24
+    Warning (13013): Ports D and ENA on the latch are fed by the same signal p_s.init_nop3 File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 21
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "clk_out" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "cke" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "cs_b" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
-    Warning (13410): Pin "ras_b" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
-    Warning (13410): Pin "cas_b" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
-    Warning (13410): Pin "we_b" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "ba_0" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "ba_1" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "dqm_l" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
     Warning (13410): Pin "dqm_h" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 10
-    Warning (13410): Pin "address_out[0]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[1]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[2]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[3]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[4]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[5]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[6]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[7]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[8]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[9]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
-    Warning (13410): Pin "address_out[10]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
+    Warning (13410): Pin "address_out[0]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[1]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[2]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[3]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[4]" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[5]" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[6]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[7]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[8]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
+    Warning (13410): Pin "address_out[9]" is stuck at VCC File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 131
     Warning (13410): Pin "address_out[11]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
     Warning (13410): Pin "address_out[12]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 11
     Warning (13410): Pin "data_out[0]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 13
@@ -450,10 +550,11 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "data_out[13]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 13
     Warning (13410): Pin "data_out[14]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 13
     Warning (13410): Pin "data_out[15]" is stuck at GND File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 13
-Info (17049): 25 registers lost all their fanouts during netlist optimizations.
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 13 registers lost all their fanouts during netlist optimizations.
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 44 input pin(s) that do not drive logic
+Warning (21074): Design contains 42 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "rd_req" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 8
     Warning (15610): No output dependent on input pin "wr_req" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 8
     Warning (15610): No output dependent on input pin "address[0]" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 9
@@ -496,16 +597,15 @@ Warning (21074): Design contains 44 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "data_in[13]" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 12
     Warning (15610): No output dependent on input pin "data_in[14]" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 12
     Warning (15610): No output dependent on input pin "data_in[15]" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 12
-    Warning (15610): No output dependent on input pin "clk" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 8
-    Warning (15610): No output dependent on input pin "init" File: /home/vineesh/Desktop/705_project/sdram_controller_git/rtl/sdram_controller.vhd Line: 8
-Info (21057): Implemented 99 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 187 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 44 input pins
     Info (21059): Implemented 39 output pins
     Info (21060): Implemented 16 bidirectional pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 119 warnings
-    Info: Peak virtual memory: 963 megabytes
-    Info: Processing ended: Wed Apr 11 20:13:38 2018
-    Info: Elapsed time: 00:00:14
+    Info (21061): Implemented 88 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 132 warnings
+    Info: Peak virtual memory: 1002 megabytes
+    Info: Processing ended: Thu Apr 12 18:27:22 2018
+    Info: Elapsed time: 00:00:15
     Info: Total CPU time (on all processors): 00:00:38
 
 

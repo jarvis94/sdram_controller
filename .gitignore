@@ -1,0 +1,5 @@
+git.bashrc
+quartus/simulation/
+quartus/output_files
+*.bak*
+

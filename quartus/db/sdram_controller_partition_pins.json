@@ -2,7 +2,32 @@
 	"partitions" : [
 		{
 			"name" : "Top",
-			"pins" : []
+			"pins" : [
+				{
+					"name" : "ras_b",
+					"strict" : false
+				},
+				{
+					"name" : "cas_b",
+					"strict" : false
+				},
+				{
+					"name" : "we_b",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[10]",
+					"strict" : false
+				},
+				{
+					"name" : "clk",
+					"strict" : false
+				},
+				{
+					"name" : "init",
+					"strict" : false
+				}
+			]
 		}
 	]
 }

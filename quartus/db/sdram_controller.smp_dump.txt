@@ -1,4 +1,20 @@
 
+State Machine - |sdram_controller|cmd_d
+Name cmd_d.idle1 cmd_d.mrs cmd_d.self cmd_d.ref cmd_d.pall cmd_d.pre cmd_d.act cmd_d.writea cmd_d.write1 cmd_d.reada cmd_d.read1 cmd_d.nop cmd_d.desl 
+cmd_d.desl 0 0 0 0 0 0 0 0 0 0 0 0 0 
+cmd_d.nop 0 0 0 0 0 0 0 0 0 0 0 1 1 
+cmd_d.read1 0 0 0 0 0 0 0 0 0 0 1 0 1 
+cmd_d.reada 0 0 0 0 0 0 0 0 0 1 0 0 1 
+cmd_d.write1 0 0 0 0 0 0 0 0 1 0 0 0 1 
+cmd_d.writea 0 0 0 0 0 0 0 1 0 0 0 0 1 
+cmd_d.act 0 0 0 0 0 0 1 0 0 0 0 0 1 
+cmd_d.pre 0 0 0 0 0 1 0 0 0 0 0 0 1 
+cmd_d.pall 0 0 0 0 1 0 0 0 0 0 0 0 1 
+cmd_d.ref 0 0 0 1 0 0 0 0 0 0 0 0 1 
+cmd_d.self 0 0 1 0 0 0 0 0 0 0 0 0 1 
+cmd_d.mrs 0 1 0 0 0 0 0 0 0 0 0 0 1 
+cmd_d.idle1 1 0 0 0 0 0 0 0 0 0 0 0 1 
+
 State Machine - |sdram_controller|p_s
 Name p_s.idle p_s.init_nop4 p_s.init_msr p_s.init_nop3 p_s.init_ar p_s.init_nop2 p_s.init_pall p_s.init_nop1 p_s.init_s 
 p_s.init_s 0 0 0 0 0 0 0 0 0 

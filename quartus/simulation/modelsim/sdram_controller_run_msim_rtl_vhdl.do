@@ -17,4 +17,4 @@ sim:/sdram_con_tb/uut/*
 
 view structure
 view signals
-run 300 us
+run 200.7 us

@@ -1,5 +1,5 @@
 Flow report for sdram_controller
-Wed Apr 11 20:13:38 2018
+Thu Apr 12 18:27:22 2018
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,17 +40,17 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Apr 11 20:13:38 2018       ;
+; Flow Status                        ; Successful - Thu Apr 12 18:27:22 2018       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; sdram_controller                            ;
 ; Top-level Entity Name              ; sdram_controller                            ;
 ; Family                             ; Cyclone IV E                                ;
 ; Device                             ; EP4CE22F17C6                                ;
 ; Timing Models                      ; Final                                       ;
-; Total logic elements               ; 0                                           ;
-;     Total combinational functions  ; 0                                           ;
-;     Dedicated logic registers      ; 0                                           ;
-; Total registers                    ; 0                                           ;
+; Total logic elements               ; 76                                          ;
+;     Total combinational functions  ; 75                                          ;
+;     Dedicated logic registers      ; 32                                          ;
+; Total registers                    ; 32                                          ;
 ; Total pins                         ; 99                                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 0                                           ;
@@ -64,7 +64,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/11/2018 20:13:25 ;
+; Start date & time ; 04/12/2018 18:27:08 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; sdram_controller    ;
 +-------------------+---------------------+
@@ -75,7 +75,7 @@ refer to the applicable agreement for further details.
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
 ; Assignment Name                      ; Value                                  ; Default Value ; Entity Name ; Section Id     ;
 +--------------------------------------+----------------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID                ; 150294082763785.152345780508683        ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID                ; 150294082763785.152353782818310        ; --            ; --          ; --             ;
 ; EDA_DESIGN_INSTANCE_NAME             ; uut                                    ; --            ; --          ; sdram_con_tb   ;
 ; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; sdram_con_tb                           ; --            ; --          ; eda_simulation ;
 ; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                   ; --            ; --          ; eda_simulation ;
@@ -103,8 +103,8 @@ refer to the applicable agreement for further details.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:14     ; 1.0                     ; 953 MB              ; 00:00:38                           ;
-; Total                ; 00:00:14     ; --                      ; --                  ; 00:00:38                           ;
+; Analysis & Synthesis ; 00:00:15     ; 1.0                     ; 962 MB              ; 00:00:38                           ;
+; Total                ; 00:00:15     ; --                      ; --                  ; 00:00:38                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
