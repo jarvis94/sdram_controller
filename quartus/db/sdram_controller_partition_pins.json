@@ -16,7 +16,55 @@
 					"strict" : false
 				},
 				{
+					"name" : "address_out[0]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[1]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[2]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[3]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[4]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[5]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[6]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[7]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[8]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[9]",
+					"strict" : false
+				},
+				{
 					"name" : "address_out[10]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[11]",
+					"strict" : false
+				},
+				{
+					"name" : "address_out[12]",
 					"strict" : false
 				},
 				{
@@ -25,6 +73,102 @@
 				},
 				{
 					"name" : "init",
+					"strict" : false
+				},
+				{
+					"name" : "address[0]",
+					"strict" : false
+				},
+				{
+					"name" : "address[9]",
+					"strict" : false
+				},
+				{
+					"name" : "address[1]",
+					"strict" : false
+				},
+				{
+					"name" : "address[10]",
+					"strict" : false
+				},
+				{
+					"name" : "address[2]",
+					"strict" : false
+				},
+				{
+					"name" : "address[11]",
+					"strict" : false
+				},
+				{
+					"name" : "address[3]",
+					"strict" : false
+				},
+				{
+					"name" : "address[12]",
+					"strict" : false
+				},
+				{
+					"name" : "address[4]",
+					"strict" : false
+				},
+				{
+					"name" : "address[13]",
+					"strict" : false
+				},
+				{
+					"name" : "address[5]",
+					"strict" : false
+				},
+				{
+					"name" : "address[14]",
+					"strict" : false
+				},
+				{
+					"name" : "address[6]",
+					"strict" : false
+				},
+				{
+					"name" : "address[15]",
+					"strict" : false
+				},
+				{
+					"name" : "address[7]",
+					"strict" : false
+				},
+				{
+					"name" : "address[16]",
+					"strict" : false
+				},
+				{
+					"name" : "address[8]",
+					"strict" : false
+				},
+				{
+					"name" : "address[17]",
+					"strict" : false
+				},
+				{
+					"name" : "address[18]",
+					"strict" : false
+				},
+				{
+					"name" : "address[19]",
+					"strict" : false
+				},
+				{
+					"name" : "address[20]",
+					"strict" : false
+				},
+				{
+					"name" : "address[21]",
+					"strict" : false
+				},
+				{
+					"name" : "wr_req",
+					"strict" : false
+				},
+				{
+					"name" : "rd_req",
 					"strict" : false
 				}
 			]

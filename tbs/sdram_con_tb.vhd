@@ -30,7 +30,10 @@ begin
 	init <= '0';
 	wait for 10 ns;
 	init <= '1';
-	wait for 10 ns;
+	wait for 100 ns;
+	rd_req <= '1';
+	address <= "101010101010101010101010";
+	wait for 50 ns;
 	wait;
 end process;
 end sdram_con_tb_arc;

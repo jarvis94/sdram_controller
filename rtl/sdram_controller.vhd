@@ -16,7 +16,8 @@ entity sdram_controller is
 end sdram_controller;
 
 architecture sdram_controller_arc of sdram_controller is
-type state is (init_s,init_nop1,init_pall,init_nop2,init_ar,init_nop3,init_msr,init_nop4,idle);
+type state is (init_s,init_nop1,init_pall,init_nop2,init_ar,init_nop3,init_msr,init_nop4,idle,write_act,write_nop1,write_nop2,write_cas
+			   ,read_act,read_nop1,read_cas,read_nop2);
 type cmd is (desl,nop,read1,reada,write1,writea,act,pre,pall,ref,self,mrs,idle1); -- for debug purposes
 signal p_s,n_s: state;
 signal cnt_setup,cnt_setup_reg: std_logic_vector(15 downto 0);
@@ -27,6 +28,7 @@ signal command_nxt:std_logic_vector(7 downto 0);
 signal cmd_d,cmd_d_nxt: cmd;
 signal cnt_ar: std_logic_vector(3 downto 0);
 signal busy: std_logic;
+signal address_out_r: std_logic_vector(12 downto 0);
 
 --commands                                            CCRCWBBA
 constant cmd_desl  : std_logic_vector(7 downto 0) := "11------"; -- device deselect
@@ -60,14 +62,14 @@ begin
 end process;
 
 -- mux for selecting bank bits
-a10_select_proc: process (command)
-begin
-	if (command = cmd_act) then
-		address_out(10) <= address(10);
-	else
-		address_out(10) <= command(0);
-	end if;
-end process;
+--a10_select_proc: process (command)
+--begin
+--	if (command = cmd_act) then
+--		address_out(10) <= address(10);
+--	else
+--		address_out(10) <= command(0);
+--	end if;
+--end process;
 
 --counter for initial delay
 cnt_setup_proc: process(init,clk,cnt_setup_st)
@@ -106,9 +108,6 @@ cnt_state_proc: process(init,clk)
 		end if;
 	end process;
 
-
-
-
 state_proc:process(clk,init)
 begin
 	if (init = '0') then
@@ -125,14 +124,45 @@ begin
 	end if;
 end process;
 
+-- sort out address depending on current state
+address_out_proc: process(p_s,command_nxt)
+begin
+	--if (clk'event and clk= '0') then
+	case(p_s) is
+		when init_msr => 
+			address_out_r(10) <= command_nxt(0);
+			address_out_r(9 downto 0) <= "1000110000"; -- 1 > single write, 00 > standard operation, 011 > cas latency=3
+			  										--  0 > sequential operation 000> burst length = 1
+			 address_out_r(12 downto 11) <= "00";
+		when read_act =>
+			address_out_r<= address(21 downto 9);
+		when read_cas =>
+			address_out_r<= "00" & command_nxt(0) & '0' & address(8 downto 0);
+		when write_act =>	
+			address_out_r <= address(21 downto 9);			
+		when write_cas =>
+			address_out_r<= "00" & command_nxt(0) & '0' & address(8 downto 0);
+		when others =>
+			address_out_r<= (10 => command_nxt(0), others => '0');
+	end case;
+	--end if;
+end process;
 
-next_state_proc:process(p_s,cnt_state_reg,cnt_setup_reg,cnt_ar)
+address_out_reg: process(clk)
+begin
+	if(clk'event and clk='0') then
+		address_out <= address_out_r;
+	end if;
+end process;
+
+next_state_proc:process(p_s,cnt_state_reg,cnt_setup_reg,cnt_ar,rd_req,wr_req)
 begin
 	case(p_s) is
 		--initialisation sequence
 		when init_s => 
 			cnt_setup_st <= '1';
-			cnt_setup <= x"4E20";
+			--cnt_setup <= x"4E20"; 200us
+			cnt_setup <= x"0002";
 			command_nxt <= cmd_nop;
 			cmd_d_nxt <= nop;
 			n_s <= init_nop1;
@@ -159,7 +189,8 @@ begin
 		if (cnt_state_reg = x"0") then
 			n_s <= init_ar;
 			cnt_ar_st <= '0';
-			cnt_ar <= x"7";
+			--cnt_ar <= x"7"; 8 refresh cycles
+			cnt_ar <= x"1";
 		else
 			n_s <= init_nop2;
 		end if;
@@ -199,7 +230,7 @@ begin
 			cnt_state_st <= '1';
 			cnt_state <= x"1";
 			n_s <= init_nop4;
-			address_out(9 downto 0) <= "1000110000"; -- 1 > single write, 00 > standard operation, 011 > cas latency=3
+		--	address_out(9 downto 0) <= "1000110000"; -- 1 > single write, 00 > standard operation, 011 > cas latency=3
 													--  0 > sequential operation 000> burst length = 1   
 
 		when init_nop4 =>
@@ -215,8 +246,84 @@ begin
 		
 
 		when idle =>
+			command_nxt <= cmd_nop;
 			cmd_d_nxt <= idle1;
 			busy <= '0';
+			if (rd_req = '1') then
+				n_s <= read_act; -- add signal
+				busy <= '1';
+			elsif (wr_req = '1') then
+				n_s <= write_act; -- add signal
+				busy <= '1';
+			else
+				n_s <= idle;			
+			end if;
+		
+-- read sequence
+		when read_act =>
+			command_nxt <= cmd_act;
+			cmd_d_nxt <= act;
+			cnt_state_st <= '1';
+			cnt_state <= x"1";
+			n_s <= read_nop1;
+		when read_nop1 =>
+		 	command_nxt <= cmd_nop;
+		 	cmd_d_nxt <= nop;
+		 	cnt_state_st <= '0';
+		 	if (cnt_state_reg = x"0") then
+				n_s <= read_cas;
+			else
+				n_s <= read_nop1;		 		
+		 	end if;
+		 when read_cas =>
+		 	command_nxt <= cmd_reada;
+		 	cmd_d_nxt <= reada;
+		 	cnt_setup_st <= '1';
+		 	cnt_state <= x"2";
+		 	n_s <= read_nop2;
+		 when read_nop2 =>
+		 	command_nxt<= cmd_nop;
+		 	cmd_d_nxt <= nop;
+		 	cnt_state_st <= '0';
+		 	if (cnt_state_reg = x"0") then
+				n_s <= idle;
+			else
+				n_s <= read_nop2;		 		
+		 	end if;
+		
+-- write sequence
+		
+		when write_act =>
+			command_nxt <= cmd_act;
+			cmd_d_nxt <= act;
+			cnt_state_st <= '1';
+			cnt_state <= x"1";
+			n_s <= read_nop1;
+		when write_nop1 =>
+		 	command_nxt <= cmd_nop;
+		 	cmd_d_nxt <= nop;
+		 	cnt_state_st <= '0';
+		 	if (cnt_state_reg = x"0") then
+				n_s <= write_cas;
+			else
+				n_s <= write_nop1;		 		
+		 	end if;
+		 when write_cas =>
+		 	command_nxt <= cmd_writea;
+		 	cmd_d_nxt <= writea;
+		 	cnt_setup_st <= '1';
+		 	cnt_state <= x"2";
+		 	n_s <= write_nop2;
+		 when write_nop2 =>
+		 	command_nxt<= cmd_nop;
+		 	cmd_d_nxt <= nop;
+		 	cnt_state_st <= '0';
+		 	if (cnt_state_reg = x"0") then
+				n_s <= idle;
+			else
+				n_s <= write_nop2;		 		
+		 	end if;
+
 		when others =>
 			null;
 	end case;

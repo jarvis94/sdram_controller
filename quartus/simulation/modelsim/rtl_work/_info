@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 d/home/vineesh/Desktop/705_project/sdram_controller_git/quartus/simulation/modelsim
 Esdram_con_tb
-Z1 w1523397212
+Z1 w1523909092
 Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
@@ -22,9 +22,9 @@ VSEWX0MO^a2NK?05SH>FS11
 !s100 P@FaDgP1oe1]>DA6ViRGb3
 Z7 OV;C;10.5b;63
 31
-Z8 !s110 1523537873
+Z8 !s110 1523945956
 !i10b 1
-Z9 !s108 1523537873.000000
+Z9 !s108 1523945956.000000
 Z10 !s90 -reportprogress|300|-93|-work|work|/home/vineesh/Desktop/705_project/sdram_controller_git/quartus/../tbs/sdram_con_tb.vhd|
 Z11 !s107 /home/vineesh/Desktop/705_project/sdram_controller_git/quartus/../tbs/sdram_con_tb.vhd|
 !i113 1
@@ -38,8 +38,8 @@ R4
 DEx4 work 12 sdram_con_tb 0 22 SEWX0MO^a2NK?05SH>FS11
 l17
 L8
-V@]06FEKCfiIoLoUL5I9[[3
-!s100 _fKX[2<KGA0l7cjZeWAd]0
+V?G@RGfH`W8E68K0PWk5<;3
+!s100 C70;oV47geRa`79zm<d1l3
 R7
 31
 R8
@@ -51,7 +51,7 @@ R11
 R12
 R13
 Esdram_controller
-Z15 w1523537819
+Z15 w1523945256
 R2
 R3
 R4
@@ -77,10 +77,10 @@ R2
 R3
 R4
 R14
-l45
+l48
 L18
-V0Yli_V9PoC2OTMeTXJKT[3
-!s100 NVKM@XZMkEYf[bWA;@9H83
+VOC;Vo>]VU2FOcXmlHmHPn3
+!s100 jm]9PEDZbljlgQViYo;0:3
 R7
 31
 R8
