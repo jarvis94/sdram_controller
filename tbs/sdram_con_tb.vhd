@@ -28,12 +28,13 @@ end process;
 stimulus:process
 begin
 	init <= '0';
-	wait for 10 ns;
+	wait for 20 ns;
 	init <= '1';
-	wait for 100 ns;
+	wait for 210 ns;
 	rd_req <= '1';
-	address <= "101010101010101010101010";
+	address <= "101010101010101011111111";
 	wait for 50 ns;
+	rd_req <= '0';
 	wait;
 end process;
 end sdram_con_tb_arc;
