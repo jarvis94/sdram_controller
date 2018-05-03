@@ -343,7 +343,7 @@ begin
 		--initialisation sequence
 		when init_s => 
 			cnt_setup_st <= '1';
-			cnt_setup <= std_logic_vector(to_unsigned(10000,16); --200us
+			cnt_setup <= std_logic_vector(to_unsigned(10000,16)); --200us
 			--cnt_setup <= x"0002";
 			command_nxt <= cmd_nop;
 			cmd_d_nxt <= nop;
